@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:my_project1/main.dart';
+import 'homepage.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  var number = 100;
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-        home: Container(
-      child: Text("Hello World ! "),
-    ));
+      home : homepage(),
+    );
   }
 }
