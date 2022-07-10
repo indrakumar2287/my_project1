@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_project1/pages/login_page.dart';
+import 'package:my_project1/pages/signup_page.dart';
 import 'pages/homepage.dart';
 
 void main() {
@@ -9,20 +10,21 @@ void main() {
 class MyApp extends StatelessWidget {
   var number = 100;
 
+  MyApp({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      // home : homepage(),
+      debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.red),
-      darkTheme: ThemeData(brightness: Brightness.dark ),
-      initialRoute: "/home",
-     routes: {
-      "/":(context) =>  Loginpage(),
-      "/home":(context) => homepage(),
-      "/login":(context) => Loginpage(),
-     },
-      
+      darkTheme: ThemeData(brightness: Brightness.dark),
+      initialRoute: "login",
+      routes: {
+        "home": (context) => Homepage(),
+        "login": (context) => const LoginPage(),
+        "signup": (context) => const SignupPage(),
+      },
     );
   }
 }

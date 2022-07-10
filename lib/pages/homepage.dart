@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:my_project1/main.dart';
 
-class homepage extends StatelessWidget {
-
+class Homepage extends StatelessWidget {
   var number = 321;
   String str = "anu";
+
+  Homepage({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text("Catalog app"),
+        title: const Text("Catalog app"),
       ),
       body: Center(
           child: Container(
-              child: Text("Hello World ! number=$number "),
+        child: const Text(" Home Page \ n\n!! RAM RAM !! "),
       )),
-      drawer: Drawer(),
+      drawer: const Drawer(),
     );
   }
 }
