@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.red),
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: "signup2",
+      initialRoute: "login",
       routes: {
         "home": (context) => Homepage(),
         "login": (context) => const LoginPage(),
