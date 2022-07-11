@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_project1/pages/demo.dart';
 import 'package:my_project1/pages/login_page.dart';
 import 'package:my_project1/pages/signup_page.dart';
 import 'pages/homepage.dart';
@@ -19,11 +20,13 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.red),
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: "login",
+      initialRoute: "signup2",
       routes: {
         "home": (context) => Homepage(),
         "login": (context) => const LoginPage(),
         "signup": (context) => const SignupPage(),
+        "signup2": (context) => const MyRegister(),
+
       },
     );
   }

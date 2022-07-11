@@ -33,7 +33,7 @@ class _SignupPageState extends State<SignupPage> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.5,
+                    top: MediaQuery.of(context).size.height * 0.4,
                     right: 35,
                     left: 35),
                 child: Column(
@@ -43,6 +43,18 @@ class _SignupPageState extends State<SignupPage> {
                           fillColor: Colors.grey.shade100,
                           filled: true,
                           hintText: 'Name',
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10))),
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    TextField(
+                      obscureText: true,
+                      decoration: InputDecoration(
+                          fillColor: Colors.grey.shade100,
+                          filled: true,
+                          hintText: 'Email',
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10))),
                     ),
@@ -65,7 +77,7 @@ class _SignupPageState extends State<SignupPage> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          "Sign In",
+                          "Sign Up",
                           style: TextStyle(
                             color: Color(0xff4c505b),
                             fontSize: 27,
@@ -91,10 +103,10 @@ class _SignupPageState extends State<SignupPage> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, 'signup');
+                            Navigator.pushNamed(context, 'login');
                           },
                           child: Text(
-                            "Sign Up",
+                            "Sign In",
                             style: TextStyle(
                                 decoration: TextDecoration.underline,
                                 fontSize: 18,
