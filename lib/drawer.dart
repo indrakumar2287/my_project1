@@ -1,41 +1,65 @@
 import 'package:flutter/material.dart';
 
-class MyDrawer extends StatefulWidget {
+class MyDrawer extends StatelessWidget {
   const MyDrawer({Key? key}) : super(key: key);
 
   @override
-  State<MyDrawer> createState() => _MyDrawerState();
-}
-
-class _MyDrawerState extends State<MyDrawer> {
-  @override
   Widget build(BuildContext context) {
     return Drawer(
-
-      elevation: 4,
       child: Column(
-        children: [
+        children: <Widget>[
           Container(
-            height: 120,
             width: double.infinity,
-            padding: const EdgeInsets.all(20),
-            alignment: Alignment.centerLeft,
-            color: Theme.of(context).accentColor,
-            child: Text(
-              'Cooking Up!',
-              style: TextStyle(
-                fontWeight: FontWeight.w900,
-                fontSize: 30,
-                color: Theme.of(context).primaryColor,
+            padding: EdgeInsets.all(20),
+            color: Theme.of(context).primaryColor,
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  Container(
+                    width: 100,
+                    height: 100,
+                    margin: EdgeInsets.only(top: 25,bottom: 10),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage("assets/images/indra.jpg"),
+                        fit: BoxFit.fill
+                      )
+                    ),
+                  ),
+                  Text("Indra Prajapat",style: TextStyle(
+                    fontSize: 22,
+                    color: Colors.white,
+                  ),),
+                  Text("indraxyz123@gmail.com",style: TextStyle(
+                    color: Colors.white,
+                  ),)
+                ],
               ),
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
 
+          ),
+          ListTile(
+            leading: Icon(Icons.person),
+            title: Text('Profile',style: TextStyle(fontSize: 18),),
+            onTap: (){
+              Navigator.of(context).pop();
+              Navigator.pushNamed(context, 'profile');
+            },
+          ),
+          ListTile(
+            leading: Icon(Icons.settings),
+            title: Text('Setting',style: TextStyle(fontSize: 18),),
+            onTap: null,
+          ),
+          ListTile(
+            leading: Icon(Icons.arrow_back),
+            title: Text('Log Out',style: TextStyle(fontSize: 18),),
+            onTap: (){Navigator.pushNamed(context, 'login');}
+          ),
         ],
-      ),
+      )
+
     );
   }
 }

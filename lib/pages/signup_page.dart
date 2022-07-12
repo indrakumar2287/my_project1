@@ -50,7 +50,6 @@ class _SignupPageState extends State<SignupPage> {
                       height: 30,
                     ),
                     TextField(
-                      obscureText: true,
                       decoration: InputDecoration(
                           fillColor: Colors.grey.shade100,
                           filled: true,
