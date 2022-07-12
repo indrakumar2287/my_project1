@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_project1/drawer.dart';
 // import 'dart:ffi';
 // import 'dart:ui' as ui;
 
@@ -74,7 +75,9 @@ class _LoginPageState extends State<LoginPage> {
                       backgroundColor: Color(0xff4c505b),
                     child: IconButton(
                       color: Colors.white,
-                      onPressed: (){},
+                      onPressed: (){
+                        Navigator.pushNamed(context, 'home');
+                      },
                       icon: Icon(Icons.arrow_forward),
                     ),
                   )
