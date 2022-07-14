@@ -10,6 +10,7 @@ import 'package:my_project1/pages/signup_page.dart';
 import 'pages/homepage.dart';
 import 'package:my_project1/drawer.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'dart:ui';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,7 +20,6 @@ Future main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   MyApp({Key? key}) : super(key: key);
 
   @override
@@ -35,9 +35,8 @@ class MyApp extends StatelessWidget {
         "login": (context) => const LoginPage(),
         "signup": (context) => const SignupPage(),
         "signup2": (context) => const MyRegister(),
-        "drawer" : (context) => const MyDrawer(),
-        'profile' : (context) => const MyProfile(),
-
+        "drawer": (context) => const MyDrawer(),
+        'profile': (context) => const MyProfile(),
       },
     );
   }
