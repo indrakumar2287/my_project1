@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:my_project1/drawer.dart';
 import 'package:flutter/src/material/icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class MyProfile extends StatefulWidget {
   const MyProfile({Key? key}) : super(key: key);
@@ -21,22 +23,31 @@ class _MyProfileState extends State<MyProfile> {
           ),),
           backgroundColor: Theme.of(context).primaryColor,
         ),
-        body:Center(
-          child: CircleAvatar(
-            radius: 30,
-            backgroundColor: Color(0xff4c505b),
-            child: IconButton(
-              color: Colors.white,
-              onPressed: (){
-                Navigator.pushNamed(context, 'home');
-              },
-              icon: Icon(Icons.arrow_back),
+        body:Column(
+          children: [
+            CircleAvatar(
+              radius: 30,
+              backgroundColor: Color(0xff4c505b),
+              child: IconButton(
+                color: Colors.white,
+                onPressed: (){
+                  Navigator.pushNamed(context, 'home');
+                },
+                icon: Icon(Icons.arrow_back),
+              ),
             ),
-          )
+            Text("Click Above",style:GoogleFonts.alike(textStyle: Theme.of(context).textTheme.displayMedium,fontSize: 40),)
+          ],
           ),
 
+
+
         )
-       );
+
+    );
 
   }
+
 }
+
+
