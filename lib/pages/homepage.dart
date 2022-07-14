@@ -17,15 +17,33 @@ class Homepage extends StatelessWidget {
         ],
       ),
       drawer: MyDrawer(),
-      body: Center(
-          child: Container(
-        child: const Text(" Home Page ",style: TextStyle(
-          fontSize: 30,
-          fontWeight: FontWeight.w800,
-          color: Colors.black54
-        ),),
-      )),
+      body: Column(
+        children: [
+          Text(" Home Page ",style: TextStyle(
+              fontSize: 30,
+              fontWeight: FontWeight.w800,
+              color: Colors.black54
+          ),),
 
+        ],
+      ),
+      bottomNavigationBar: BottomAppBar(
+        color: Theme.of(context).primaryColor,
+        child: IconTheme(
+          data: IconThemeData(
+            color: Colors.black,
+          ), child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            IconButton(onPressed: (){}, icon: Icon(Icons.home)),
+            IconButton(onPressed: (){}, icon: Icon(Icons.add_shopping_cart)),
+            IconButton(onPressed: (){}, icon: Icon(Icons.category)),
+            IconButton(onPressed: (){}, icon: Icon(Icons.person)),
+          ],
+
+        ),
+        ),
+      ),
     );
   }
 }

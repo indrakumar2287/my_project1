@@ -1,11 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:my_project1/drawer.dart';
+import 'package:my_project1/database.dart';
 // import 'dart:ffi';
 // import 'dart:ui' as ui;
 
 class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
@@ -144,13 +144,15 @@ class _LoginPageState extends State<LoginPage> {
 
   Future CreateUser({required String name, required String password}) async {
     ///Reference to document
-    final docuser = FirebaseFirestore.instance.collection('Logins').doc();
+    final DocUser = FirebaseFirestore.instance.collection('Logins').doc();
     final json = {
-      'name': name,
-      'password': password,
+      'Name': name,
+      'Password': password,
     };
 
+    // db.collection("Logins").doc().set({database(name,)});
+
     /// Create Document and write data to Firebase
-    await docuser.set(json);
+    await DocUser.set(json);
   }
 }

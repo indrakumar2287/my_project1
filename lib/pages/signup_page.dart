@@ -1,7 +1,8 @@
-import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'login_page.dart';
+import 'package:my_project1/data.dart';
+import 'package:my_project1/database.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -40,11 +41,15 @@ class _SignupPageState extends State<SignupPage> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.4,
+                    top: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.4,
                     right: 35,
                     left: 35),
                 child: Column(
                   children: [
+
                     TextField(
                       controller: name,
                       decoration: InputDecoration(
@@ -118,7 +123,11 @@ class _SignupPageState extends State<SignupPage> {
                               final email3 = email.text;
                               final number3 = number.text;
                               final password3 = password.text;
-                              CreateUser(name: name3, password: password3);
+                              CreateUser(
+                                  name: name3,
+                                  password: password3,
+                                  email: email3,
+                                  number: number3);
                               Navigator.pushNamed(context, 'home');
                             },
                             icon: Icon(Icons.arrow_forward),
@@ -166,19 +175,44 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 
-  Future CreateUser({required String name, required String password}) async {
+  Future CreateUser({required String name,
+    required String password,
+    required String email,
+    required String number}) async {
     ///Reference to document
+
     final docuser = FirebaseFirestore.instance.collection('New_Users').doc();
     final json = {
-      'name': name,
-      'password': password,
+      'Name': name,
+      'Password': password,
+      'Email': email,
+      'Mobile Number': number
     };
 
+    Map<String, dynamic> toJson() =>
+        {
+          'Name': name,
+          'Password': password,
+          'Email': email,
+          'Mobile Number': number
+        };
+
+
+    // database db1=database(name,email,password,number);
     /// Create Document and write data to Firebase
     await docuser.set(json);
   }
 
-  // Stream<List<User>> readUsers() =>
-  //     FirebaseFirestore.instance.collection(users).snapshots().map((snapshot) =>
-  //         snapshot.docs.map((doc) => User.fromJson(doc.data())).toList());
+  // Widget buildUser(database user) => ListTile(
+  //   leading: Text(user.name),
+  //   title: Text(user.email),
+  //   subtitle: Text(user.password),
+  // );
+  //
+  //   Stream<List<database>> ReadUsers() =>
+  //       FirebaseFirestore.instance.collection('New_Users')
+  //           .snapshots()
+  //           .map((snapshot) =>
+  //           snapshot.docs.map((doc) => database.fromJson(doc.data())).toList());
+
 }
