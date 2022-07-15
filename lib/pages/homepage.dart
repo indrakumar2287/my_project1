@@ -38,7 +38,9 @@ class Homepage extends StatelessWidget {
             IconButton(onPressed: (){}, icon: Icon(Icons.home)),
             IconButton(onPressed: (){}, icon: Icon(Icons.add_shopping_cart)),
             IconButton(onPressed: (){}, icon: Icon(Icons.category)),
-            IconButton(onPressed: (){}, icon: Icon(Icons.person)),
+            IconButton(onPressed: (){
+              Navigator.pushNamed(context, 'profile');
+            }, icon: Icon(Icons.person)),
           ],
 
         ),

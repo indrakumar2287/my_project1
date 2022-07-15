@@ -30,8 +30,9 @@ class _LoginPageState extends State<LoginPage> {
               child: Text(
                 "Welcome \nBack",
                 style: TextStyle(
+                  fontFamily: 'Schyler',
                     color: Colors.white,
-                    fontSize: 33,
+                    fontSize: 45,
                     fontWeight: FontWeight.bold),
               ),
             ),

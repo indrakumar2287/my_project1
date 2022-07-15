@@ -33,8 +33,9 @@ class _SignupPageState extends State<SignupPage> {
               child: Text(
                 "Create  \nAccount",
                 style: TextStyle(
+                    fontFamily: 'Schyler',
                     color: Colors.white,
-                    fontSize: 33,
+                    fontSize: 45,
                     fontWeight: FontWeight.bold),
               ),
             ),
@@ -44,7 +45,7 @@ class _SignupPageState extends State<SignupPage> {
                     top: MediaQuery
                         .of(context)
                         .size
-                        .height * 0.4,
+                        .height * 0.35,
                     right: 35,
                     left: 35),
                 child: Column(
@@ -100,7 +101,7 @@ class _SignupPageState extends State<SignupPage> {
                               borderRadius: BorderRadius.circular(10))),
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 50,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -136,7 +137,7 @@ class _SignupPageState extends State<SignupPage> {
                       ],
                     ),
                     SizedBox(
-                      height: 40,
+                      height: 25,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
