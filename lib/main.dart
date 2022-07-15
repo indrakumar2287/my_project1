@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       themeMode: ThemeMode.light,
-      theme: ThemeData(primarySwatch: Colors.blue),
+      theme: ThemeData(primarySwatch: Colors.lightBlue),
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: "home",
+      initialRoute: "login",
       routes: {
         "home": (context) => Homepage(),
         "login": (context) => const LoginPage(),

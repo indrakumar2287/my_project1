@@ -29,7 +29,7 @@ class _SignupPageState extends State<SignupPage> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.only(left: 35, top: 100),
+              padding: EdgeInsets.only(left: 100, top: 100),
               child: Text(
                 "Create  \nAccount",
                 style: TextStyle(
@@ -142,7 +142,10 @@ class _SignupPageState extends State<SignupPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextButton(
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Colors.grey),
+                          ),
                           onPressed: () {
                             Navigator.pushNamed(context, 'login');
                           },
@@ -154,7 +157,10 @@ class _SignupPageState extends State<SignupPage> {
                                 color: Color(0xff4c505b)),
                           ),
                         ),
-                        TextButton(
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Colors.grey),
+                          ),
                           onPressed: () {},
                           child: Text(
                             "Forgot Password",

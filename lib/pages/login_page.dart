@@ -26,7 +26,7 @@ class _LoginPageState extends State<LoginPage> {
         body: Stack(
           children: [
             Container(
-              padding: EdgeInsets.only(left: 35, top: 130),
+              padding: EdgeInsets.only(left: 100, top: 130),
               child: Text(
                 "Welcome \nBack",
                 style: TextStyle(
@@ -61,7 +61,7 @@ class _LoginPageState extends State<LoginPage> {
                       controller: password,
                       obscureText: true,
                       decoration: InputDecoration(
-                          labelText: 'password',
+                          labelText: 'Password',
                           fillColor: Colors.grey.shade100,
                           filled: true,
                           hintText: 'Password',
@@ -109,7 +109,7 @@ class _LoginPageState extends State<LoginPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        TextButton(
+                        ElevatedButton(
                           onPressed: () {
                             Navigator.pushNamed(context, 'signup');
                           },
@@ -121,7 +121,7 @@ class _LoginPageState extends State<LoginPage> {
                                 color: Color(0xff4c505b)),
                           ),
                         ),
-                        TextButton(
+                        ElevatedButton(
                           onPressed: () {},
                           child: Text(
                             "Forgot Password",

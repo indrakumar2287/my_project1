@@ -17,16 +17,35 @@ class Homepage extends StatelessWidget {
         ],
       ),
       drawer: MyDrawer(),
-      body: Column(
-        children: [
-          Text(" Home Page ",style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w800,
-              color: Colors.black54
-          ),),
+      body: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/login2.jpg'),
+                  fit: BoxFit.cover
+              )
+            ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Column(
+              children:[
+                Text("Home Page",style: TextStyle(
+                fontSize: 30,
+                color: Colors.white,
+                  ),
+                ),
 
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
+
+
+
+
+
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,
         child: IconTheme(
