@@ -1,10 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:my_project1/database/get_user_name.dart';
 import 'package:my_project1/drawer.dart';
+import 'package:my_project1/pages/demo.dart';
 import 'pages/homepage.dart';
 import 'pages/login_page.dart';
 import 'pages/profile.dart';
-import 'pages/setting.dart';
+import 'pages/database.dart';
 import 'pages/signup_page.dart';
 
 Future main() async {
@@ -24,14 +26,15 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.lightBlue),
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: 'home',
+      initialRoute: 'signup',
       routes: {
         "home": (context) => Homepage(),
         "login": (context) => const LoginPage(),
         "signup": (context) => const SignupPage(),
         "drawer": (context) => const MyDrawer(),
         'profile': (context) => const MyProfile(),
-        'setting': (context) => const Setting(),
+        'database' : (context) => const Database(),
+        // 'username': (context) =>  GetUserName(documentId: 'hello'),
       },
     );
   }

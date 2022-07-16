@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:my_project1/data.dart';
-import 'package:my_project1/database.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({Key? key}) : super(key: key);
@@ -16,6 +14,10 @@ class _SignupPageState extends State<SignupPage> {
   final email = TextEditingController();
   final number = TextEditingController();
   final password = TextEditingController();
+
+  final docuser = FirebaseFirestore.instance.collection('Users').doc();
+  // final user=FirebaseAuth.instance.currentUser!;
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,6 @@ class _SignupPageState extends State<SignupPage> {
                     left: 35),
                 child: Column(
                   children: [
-
                     TextField(
                       controller: name,
                       decoration: InputDecoration(
@@ -188,22 +189,20 @@ class _SignupPageState extends State<SignupPage> {
     required String number}) async {
     ///Reference to document
 
-    final docuser = FirebaseFirestore.instance.collection('New_Users').doc();
     final json = {
       'Name': name,
-      'Password': password,
       'Email': email,
-      'Mobile Number': number
+      'Mobile Number': number,
+      'Password': password,
     };
 
     Map<String, dynamic> toJson() =>
         {
           'Name': name,
-          'Password': password,
           'Email': email,
-          'Mobile Number': number
+          'Mobile Number': number,
+          'Password': password,
         };
-
 
     // database db1=database(name,email,password,number);
     /// Create Document and write data to Firebase

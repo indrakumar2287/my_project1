@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import './database.dart';
+import './demo.dart';
 import './homepage.dart';
 import './login_page.dart';
 import './profile.dart';
-import './setting.dart';
+import './database.dart';
 import './signup_page.dart';
 import 'package:my_project1/drawer.dart';
 

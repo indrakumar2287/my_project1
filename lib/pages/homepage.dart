@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:my_project1/drawer.dart';
 
@@ -20,7 +22,7 @@ class Homepage extends StatelessWidget {
       body: Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/login2.jpg'),
+                image: AssetImage('assets/images/home.jpg'),
                   fit: BoxFit.cover
               )
             ),
@@ -30,6 +32,12 @@ class Homepage extends StatelessWidget {
           children: [
             Column(
               children:[
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
                 Container(
                   decoration: BoxDecoration(
                     color: Colors.white54,

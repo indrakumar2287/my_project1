@@ -72,8 +72,6 @@ class _MyProfileState extends State<MyProfile> {
                      // color: Colors.deepOrangeAccent,
                    margin: EdgeInsets.only(bottom: 20,top: 20),
                    decoration: BoxDecoration(
-                     // color: Colors.deepOrangeAccent,
-                     // border: Border.all(color: Colors.black),
                      borderRadius: BorderRadius.circular(15),
                    ),
 

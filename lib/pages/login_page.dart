@@ -1,19 +1,23 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:my_project1/database.dart';
-// import 'dart:ffi';
-// import 'dart:ui' as ui;
 
 class LoginPage extends StatefulWidget {
-const LoginPage({Key? key}) : super(key: key);
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final name = TextEditingController();
-  final password = TextEditingController();
+  TextEditingController email = TextEditingController();
+  TextEditingController password = TextEditingController();
+
+  bool _securetext=true;
+  var _formkey = GlobalKey<FormState>();
+  String? _emailError;
+  String? _passwordError;
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,7 +34,7 @@ class _LoginPageState extends State<LoginPage> {
               child: Text(
                 "Welcome \nBack",
                 style: TextStyle(
-                  fontFamily: 'Schyler',
+                    fontFamily: 'Font3',
                     color: Colors.white,
                     fontSize: 45,
                     fontWeight: FontWeight.bold),
@@ -44,32 +48,65 @@ class _LoginPageState extends State<LoginPage> {
                     left: 35),
                 child: Column(
                   children: [
-                    TextField(
-                      controller: name,
-                      decoration: InputDecoration(
-                          labelText: 'Email',
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          hintText: 'Email',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    SizedBox(
-                      height: 30,
-                    ),
-                    TextField(
-                      controller: password,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                          labelText: 'Password',
-                          fillColor: Colors.grey.shade100,
-                          filled: true,
-                          hintText: 'Password',
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10))),
-                    ),
-                    SizedBox(
-                      height: 40,
+                    Form(
+                      key: _formkey,
+                      child : Column(
+                      children:[
+                        TextFormField(
+                        validator: (String? value){
+                          if(value!.length < 10)
+                            return "Email Is Necessary";
+                          else
+                            return null;
+                        },
+                        controller: email,
+                        decoration: InputDecoration(
+                            errorText: _emailError,
+                            labelText: 'Email',
+                            fillColor: Colors.grey.shade100,
+                            filled: true,
+                            hintText: 'Email',
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(10))),
+                      ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        TextFormField(
+                          validator: (String? value){
+                            if(value!.length < 10)
+                              return "Enter at least 10 char";
+                            else
+                              return null;
+                          },
+                          controller: password,
+                          obscureText: _securetext,
+                          decoration: InputDecoration(
+                            labelText: 'Password',
+                            errorText: _passwordError,
+                            fillColor: Colors.grey.shade100,
+                            filled: true,
+                            hintText: 'Password',
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            suffixIcon: IconButton(
+                              icon: Icon(_securetext
+                                  ? Icons.remove_red_eye
+                                  : Icons.security),
+                              onPressed: () {
+                                setState(() {
+                                  _securetext = !_securetext;
+                                });
+                              },
+                            ),
+                          ),
+                          ),
+                          SizedBox(
+                            height: 40,
+                          ),
+                        ],
+                      ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -86,23 +123,35 @@ class _LoginPageState extends State<LoginPage> {
                           radius: 30,
                           backgroundColor: Color(0xff4c505b),
                           child: IconButton(
+                            icon: Icon(Icons.arrow_forward),
                             color: Colors.white,
                             onPressed: () {
-                              if (name.text.isEmpty) {
-                                print("Blank Entry");
-                              } else {
-                                Navigator.pushNamed(context, 'home');
-                                final name2 = name.text;
-                                final password2 = password.text;
-                                CreateUser(name: name2, password: password2);
-                              }
-                              ;
-                            },
-                            icon: Icon(Icons.arrow_forward),
-                          ),
+                              setState(() {
+                                if(email.text.length<8 || password.text.length < 8){
+                                if(email.text.length < 8)
+                                  _emailError = "Invalid Email";
+                                else {
+                                  _emailError = null;
+                                };
+                                if(password.text.length < 8)
+                                  _passwordError = "Enter at least 8 char";
+                                else {
+                                  _passwordError = null;
+                                };}
+                                else{
+                                  Navigator.pushNamed(context, 'home');
+                                  final name2 = email.text;
+                                  final password2 = password.text;
+                                  CreateUser(email: name2, password: password2);
+                                };
+
+                              });
+
+                            }, ),
                         )
                       ],
                     ),
+
                     SizedBox(
                       height: 40,
                     ),
@@ -143,16 +192,13 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Future CreateUser({required String name, required String password}) async {
+  Future CreateUser({required String email, required String password}) async {
     ///Reference to document
     final DocUser = FirebaseFirestore.instance.collection('Logins').doc();
     final json = {
-      'Name': name,
+      'Name': email,
       'Password': password,
     };
-
-    // db.collection("Logins").doc().set({database(name,)});
-
     /// Create Document and write data to Firebase
     await DocUser.set(json);
   }
