@@ -33,7 +33,7 @@ class _SignupPageState extends State<SignupPage> {
               child: Text(
                 "Create  \nAccount",
                 style: TextStyle(
-                    fontFamily: 'Schyler',
+                    fontFamily: 'Font3',
                     color: Colors.white,
                     fontSize: 45,
                     fontWeight: FontWeight.bold),
