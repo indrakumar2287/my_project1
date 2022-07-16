@@ -50,7 +50,9 @@ class MyDrawer extends StatelessWidget {
           ListTile(
             leading: Icon(Icons.settings),
             title: Text('Setting',style: TextStyle(fontSize: 18),),
-            onTap: null,
+            onTap: (){
+              Navigator.pushNamed(context, 'setting');
+            },
           ),
           ListTile(
             leading: Icon(Icons.arrow_back),

@@ -1,11 +1,11 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:my_project1/data.dart';
-import 'package:my_project1/pages/login_page.dart';
-import 'package:my_project1/pages/profile.dart';
-import 'package:my_project1/pages/signup_page.dart';
-import 'pages/homepage.dart';
+import 'package:flutter/material.dart';
 import 'package:my_project1/drawer.dart';
+import 'pages/homepage.dart';
+import 'pages/login_page.dart';
+import 'pages/profile.dart';
+import 'pages/setting.dart';
+import 'pages/signup_page.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,14 +24,14 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.lightBlue),
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: "login",
+      initialRoute: 'home',
       routes: {
         "home": (context) => Homepage(),
         "login": (context) => const LoginPage(),
         "signup": (context) => const SignupPage(),
         "drawer": (context) => const MyDrawer(),
         'profile': (context) => const MyProfile(),
-        'data' : (context) => const Data(),
+        'setting': (context) => const Setting(),
       },
     );
   }

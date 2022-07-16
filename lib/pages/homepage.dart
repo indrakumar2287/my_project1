@@ -30,11 +30,21 @@ class Homepage extends StatelessWidget {
           children: [
             Column(
               children:[
-                Text("Home Page",style: TextStyle(
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white54,
+                    border: Border.all(color: Colors.cyanAccent),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+
+                  margin: EdgeInsets.only(top: MediaQuery.of(context).size.height*0.4),
+                child: Text("Home Page",style: TextStyle(
                 fontSize: 30,
-                color: Colors.white,
+                color: Colors.grey.shade900,
+                fontFamily: 'Font2',
                   ),
                 ),
+      ),
 
               ],
             ),
