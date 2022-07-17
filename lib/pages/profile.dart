@@ -27,58 +27,51 @@ class _MyProfileState extends State<MyProfile> {
 
           decoration: BoxDecoration(
               image: DecorationImage(
-                  image: AssetImage('assets/images/image3.jpg'),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(Colors.transparent, BlendMode.overlay)
+                  image: AssetImage('assets/images/image3.jpg'),fit: BoxFit.cover,
+                  filterQuality: FilterQuality.high
               )
           ),
-
           child: SingleChildScrollView(
           child: Card(
-            // elevation: 10,
-            // shadowColor: Colors.blue,
             margin: EdgeInsets.only(
                 left: 40,
                 top: MediaQuery.of(context).size.height * 0.2,
                 bottom: MediaQuery.of(context).size.height * 0.2,
                 right: 40),
-            color: Colors.transparent,
+            color: Colors.grey.shade100,
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(50),
-
+              borderRadius: BorderRadius.circular(20),
             ),
             child: Container(
-              // margin: EdgeInsets.only(
-              //     left: 20,
-              //     top: 20,
-              //     bottom: 40,
-              //     right: 40),
-              // decoration: BoxDecoration(
-              //   image: DecorationImage(
-              //     image: AssetImage('assets/images/image3.jpg'),fit: BoxFit.fill,
-              //     // colorFilter: ColorFilter.mode(Colors.grey, BlendMode.overlay)
-              //   ),
-              // ),
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('assets/images/image3.jpg'),
+                  fit: BoxFit.fill
+                )
+              ),
               child:
                 Column(
                  children: [
                    BackdropFilter(
-                     filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+                     filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
                      child: Container(
                        color: Colors.transparent,
                      ),
                    ),
                    Container(
                      // color: Colors.deepOrangeAccent,
-                   margin: EdgeInsets.only(bottom: 20,top: 20),
+                   margin: EdgeInsets.only(bottom: 40,top: 10),
                    decoration: BoxDecoration(
+                     color: Colors.deepOrangeAccent,
+                     border: Border.all(color: Colors.black),
                      borderRadius: BorderRadius.circular(15),
                    ),
 
                    child: Text('Profile',style: TextStyle(
-                     fontSize: 50,
+                     // backgroundColor: Colors.deepOrangeAccent,
+                     fontSize: 40,
                      fontWeight: FontWeight.bold,
-                     color: Colors.white70,
+                     color: Colors.black,
                      fontFamily: 'Font3'
                    ),),),
                    TextField(
@@ -122,9 +115,10 @@ class _MyProfileState extends State<MyProfile> {
                      ),
                    ),
                    SizedBox(
-                     height: 50,
+                     height: 40,
                    ),
                    Row(
+                     crossAxisAlignment: CrossAxisAlignment.center,
                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                      children: [
                        Container(decoration: BoxDecoration(
@@ -133,8 +127,8 @@ class _MyProfileState extends State<MyProfile> {
                          borderRadius: BorderRadius.circular(15),
                        ),
                          child: TextButton(onPressed: (){}, child: Text('Profile',style: TextStyle(
-                           fontSize: 15,
-                           color: Colors.black
+                             fontSize: 15,
+                             color: Colors.black
                          ),),),
                        ),
                        Container(decoration: BoxDecoration(
@@ -146,11 +140,7 @@ class _MyProfileState extends State<MyProfile> {
                              fontSize: 15,
                              color: Colors.black
                          ),)),
-                       ),
-                     ],
-                   ),
-                   SizedBox(
-                     height: 20,
+                       ), ],
                    ),
                    // TextButton(onPressed: (){}, child: child)
             ],
@@ -160,8 +150,5 @@ class _MyProfileState extends State<MyProfile> {
           ),
         ),
         );
-
-
-
   }
 }

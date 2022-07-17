@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:my_project1/database/get_user_name.dart';
+import '../database/get_email.dart';
 import './signup_page.dart';
 
 
@@ -15,14 +16,14 @@ class Database extends StatefulWidget {
 }
 
 class _DatabaseState extends State<Database> {
-  final user=FirebaseAuth.instance.currentUser!;
+  // final user=FirebaseAuth.instance.currentUser!;
   List<String> docIds =[];
 
   //Get IDs
   Future getIds() async {
     await FirebaseFirestore.instance.collection('Users').get().
     then((snapshot) => snapshot.docs.forEach((document) {
-      print(document.reference);
+      // print(document.reference);
       docIds.add(document.reference.id);
     })
     );
@@ -39,12 +40,12 @@ class _DatabaseState extends State<Database> {
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
-                image: AssetImage('assets/images/login3.jpg'),
+                image: AssetImage('assets/images/image6.jpg'),
                 fit: BoxFit.cover,
               ),
             ),
             child: BackdropFilter(
-              filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+              filter: ImageFilter.blur(sigmaX: 8.0, sigmaY: 8.0),
               child: Container(
                 color: Colors.transparent,
               ),
@@ -53,8 +54,7 @@ class _DatabaseState extends State<Database> {
           Scrollbar(
             // thumbVisibility: false,
             trackVisibility: true,
-            thickness: 10,
-            child: Expanded(
+            thickness: 5,
                 child: FutureBuilder(
                   future: getIds(),
                   builder: (context,snapshot){
@@ -62,13 +62,17 @@ class _DatabaseState extends State<Database> {
                         itemCount: docIds.length,
                         itemBuilder: (context,index){
                       return ListTile(
-                        leading: Icon(Icons.person,size: 30,),
-                        title: GetUserName(documentId: docIds[index],)
+                        leading: Icon(Icons.person,size: 40,),
+                        title: Container(
+                            child: GetUserName(documentId: docIds[index])),
+                        iconColor: Colors.deepPurpleAccent,
+                        textColor: Colors.white,
+                        subtitle: GetEmail(documentId: docIds[index]),
+                        // trailing: Icon(Icons.arrow_forward),
                       );
                     });
                   },
                 )
-            ),
           ),
         ],
       ),

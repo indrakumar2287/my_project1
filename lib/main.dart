@@ -1,13 +1,12 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:my_project1/database/get_user_name.dart';
-import 'package:my_project1/drawer.dart';
-import 'package:my_project1/pages/demo.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:my_project1/data.dart';
+import 'package:my_project1/pages/database.dart';
+import 'package:my_project1/pages/login_page.dart';
+import 'package:my_project1/pages/profile.dart';
+import 'package:my_project1/pages/signup_page.dart';
 import 'pages/homepage.dart';
-import 'pages/login_page.dart';
-import 'pages/profile.dart';
-import 'pages/database.dart';
-import 'pages/signup_page.dart';
+import 'package:my_project1/drawer.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: Colors.lightBlue),
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: 'signup',
+      initialRoute: "home",
       routes: {
         "home": (context) => Homepage(),
         "login": (context) => const LoginPage(),
@@ -34,7 +33,7 @@ class MyApp extends StatelessWidget {
         "drawer": (context) => const MyDrawer(),
         'profile': (context) => const MyProfile(),
         'database' : (context) => const Database(),
-        // 'username': (context) =>  GetUserName(documentId: 'hello'),
+        'data' : (context) => const Data(),
       },
     );
   }

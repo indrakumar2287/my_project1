@@ -55,10 +55,16 @@ class MyDrawer extends StatelessWidget {
             },
           ),
           ListTile(
+              leading: Icon(Icons.analytics),
+              title: Text('Database',style: TextStyle(fontSize: 18),),
+              onTap: (){Navigator.pushNamed(context, 'database');}
+          ),
+          ListTile(
             leading: Icon(Icons.arrow_back),
             title: Text('Log Out',style: TextStyle(fontSize: 18),),
             onTap: (){Navigator.pushNamed(context, 'login');}
           ),
+
         ],
       )
 
