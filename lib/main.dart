@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:my_project1/data.dart';
-import 'package:my_project1/pages/database.dart';
+import 'package:my_project1/database/database.dart';
 import 'package:my_project1/pages/login_page.dart';
 import 'package:my_project1/pages/profile.dart';
 import 'package:my_project1/pages/signup_page.dart';

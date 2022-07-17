@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:my_project1/database/check_user.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -17,6 +18,18 @@ class _LoginPageState extends State<LoginPage> {
   var _formkey = GlobalKey<FormState>();
   String? _emailError;
   String? _passwordError;
+
+  List<String> docIds =[];
+
+  //Get IDs
+  Future getIds() async {
+    await FirebaseFirestore.instance.collection('Users').get().
+    then((snapshot) => snapshot.docs.forEach((document) {
+      // print(document.reference);
+      docIds.add(document.reference.id);
+    })
+    );
+  }
 
 
   @override
@@ -61,6 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                         },
                         controller: email,
                         decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.email),
                             errorText: _emailError,
                             labelText: 'Email',
                             fillColor: Colors.grey.shade100,
@@ -82,6 +96,7 @@ class _LoginPageState extends State<LoginPage> {
                           controller: password,
                           obscureText: _securetext,
                           decoration: InputDecoration(
+                            prefixIcon: Icon(Icons.key),
                             labelText: 'Password',
                             errorText: _passwordError,
                             fillColor: Colors.grey.shade100,
@@ -102,7 +117,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           ),
-                          SizedBox(
+                        SizedBox(
                             height: 40,
                           ),
                         ],
@@ -127,6 +142,7 @@ class _LoginPageState extends State<LoginPage> {
                             color: Colors.white,
                             onPressed: () {
                               setState(() {
+                                // String check = CheckUser(docIds[index],email.text) as String;
                                 if(email.text.length<8 || password.text.length < 8){
                                 if(email.text.length < 8)
                                   _emailError = "Invalid Email";
@@ -144,9 +160,7 @@ class _LoginPageState extends State<LoginPage> {
                                   final password2 = password.text;
                                   CreateUser(email: name2, password: password2);
                                 };
-
                               });
-
                             }, ),
                         )
                       ],

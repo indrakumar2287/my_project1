@@ -13,7 +13,7 @@ class Homepage extends StatelessWidget {
         ),),
         backgroundColor: Theme.of(context).primaryColor,
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.app_registration))
+          IconButton(onPressed: (){}, icon: Icon(Icons.search))
         ],
       ),
       drawer: MyDrawer(),

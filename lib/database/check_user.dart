@@ -1,27 +1,33 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class GetEmail extends StatelessWidget {
+class CheckUser extends StatelessWidget {
+
   final String documentId;
 
-  GetEmail({required this.documentId});
+  final String name;
+
+
+  CheckUser(this.documentId, this.name);
 
   @override
   Widget build(BuildContext context) {
-    CollectionReference emails= FirebaseFirestore.instance.collection('Users');
+
+    CollectionReference checkuser= FirebaseFirestore.instance.collection('Users');
+    var check=0;
 
     return FutureBuilder<DocumentSnapshot>
-      (future : emails.doc(documentId).get(),
+      (future : checkuser.doc(documentId).get(),
       builder: (context,snapshot){
         if(snapshot.connectionState == ConnectionState.done){
           Map<String,dynamic> data = snapshot.data!.data() as
           Map<String,dynamic>;
-          return Text('${data['Email']}');
+          if('indra'==name)
+            check = 1 ;
+          return Text('$check');
         };
         return Text('Loading ....',textAlign: TextAlign.center,);
       },
     );
   }
 }
-
