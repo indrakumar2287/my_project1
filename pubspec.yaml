@@ -40,6 +40,7 @@ dependencies:
   gradle_properties: ^1.0.0
   google_fonts: ^3.0.1
   dartx: ^1.1.0
+  awesome_notifications: ^0.6.21
 
 dev_dependencies:
   flutter_launcher_icons: "^0.9.3"

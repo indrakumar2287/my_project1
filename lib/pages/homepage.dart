@@ -1,7 +1,16 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:my_project1/drawer.dart';
+import 'package:my_project1/main.dart';
+
+import '../database/get_user_name.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
+
 
 class Homepage extends StatelessWidget {
+
+  List<String> docIds =[];
 
   Homepage({Key? key}) : super(key: key);
   @override
@@ -11,6 +20,7 @@ class Homepage extends StatelessWidget {
         title: const Text("Catalog app",style: TextStyle(
           fontSize: 25,
         ),),
+        // title: GetUserName(documentId: docIds[]),
         backgroundColor: Theme.of(context).primaryColor,
         actions: [
           IconButton(onPressed: (){}, icon: Icon(Icons.search))
@@ -31,12 +41,19 @@ class Homepage extends StatelessWidget {
             Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children:[
+                BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
+                  child: Container(
+                    color: Colors.transparent,
+                  ),
+                ),
                 Container(
+                  margin: EdgeInsets.only(bottom: 15),
                   decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(10),
                   ),
-                  child: Text("Home Page",style: TextStyle(
+                  child: Text(" Send Notification ",style: TextStyle(
                   fontSize: 30,
                   color: Colors.black87,
                     fontWeight: FontWeight.bold,
@@ -44,17 +61,38 @@ class Homepage extends StatelessWidget {
                     ),
                   ),
                 ),
+                Icon(Icons.arrow_downward,size: 60,color: Colors.white,),
+                Container(
+                  height: 75,width: 75,
+                  margin: EdgeInsets.only(top: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.lightGreenAccent,
+                    borderRadius: BorderRadius.circular(30),
+                  ),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(25),
+                                side: BorderSide(color: Colors.red)
+                            )
+                        ),
+                      backgroundColor: MaterialStateProperty.all(Colors.lightGreenAccent),
+                    ),
+                    onPressed: (){}, 
+                    child: IconButton(
+                      icon: Icon(Icons.notifications),
+                      color: Colors.black,
+                      onPressed: () { Notify(); },
+                    ),
+                  ),
+                )
 
               ],
             ),
           ],
         ),
       ),
-
-
-
-
-
       bottomNavigationBar: BottomAppBar(
         color: Theme.of(context).primaryColor,
         child: IconTheme(

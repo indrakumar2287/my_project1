@@ -7,9 +7,24 @@ import 'package:my_project1/pages/profile.dart';
 import 'package:my_project1/pages/signup_page.dart';
 import 'pages/homepage.dart';
 import 'package:my_project1/drawer.dart';
+import 'package:awesome_notifications/awesome_notifications.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(channelKey: 'key1',
+          channelName: "Indra App Example",
+          channelDescription: 'Notification Example',
+          defaultColor: Colors.pink,
+          ledColor: Colors.white,
+          playSound: true,
+          enableLights: true,
+          enableVibration: true,
+        ),
+
+      ]);
   await Firebase.initializeApp();
 
   runApp(MyApp());
@@ -37,4 +52,18 @@ class MyApp extends StatelessWidget {
       },
     );
   }
+}
+void Notify() async{
+  String timezone =await AwesomeNotifications().getLocalTimeZoneIdentifier();
+  await AwesomeNotifications().createNotification(content: NotificationContent(
+    id: 1,
+    channelKey: 'key1',
+    title: "This is Notification Title",
+    body: "This is body of notification",
+    // bigPicture: "assets/images/not2.png",
+    bigPicture: 'https://www.pngall.com/wp-content/uploads/2016/04/50-Off-PNG-Clipart-Background.png',
+    notificationLayout: NotificationLayout.BigPicture,
+  ),
+  // schedule: NotificationInterval(interval: 5,timeZone: timezone,repeats: true),
+  );
 }

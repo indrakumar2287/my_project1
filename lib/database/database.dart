@@ -37,20 +37,6 @@ class _DatabaseState extends State<Database> {
       ),
       body: Stack(
         children: [
-          // Container(
-          //   decoration: BoxDecoration(
-          //     image: DecorationImage(
-          //       image: AssetImage('assets/images/image6.jpg'),
-          //       fit: BoxFit.cover,
-          //     ),
-          //   ),
-          //   child: BackdropFilter(
-          //     filter: ImageFilter.blur(sigmaX: 5.0, sigmaY: 5.0),
-          //     child: Container(
-          //       color: Colors.transparent,
-          //     ),
-          //   ),
-          // ),
           Scrollbar(
             // thumbVisibility: false,
             trackVisibility: true,
