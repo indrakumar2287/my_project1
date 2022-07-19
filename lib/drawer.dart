@@ -44,7 +44,7 @@ class MyDrawer extends StatelessWidget {
             title: Text('Profile',style: TextStyle(fontSize: 18),),
             onTap: (){
               Navigator.of(context).pop();
-              Navigator.pushNamed(context, 'profile');
+              Navigator.pushNamed(context, 'home');
             },
           ),
           ListTile(
@@ -60,9 +60,14 @@ class MyDrawer extends StatelessWidget {
               onTap: (){Navigator.pushNamed(context, 'database');}
           ),
           ListTile(
-            leading: Icon(Icons.arrow_back),
-            title: Text('Log Out',style: TextStyle(fontSize: 18),),
-            onTap: (){Navigator.pushNamed(context, 'login');}
+            leading: Icon(Icons.notifications),
+            title: Text('Notification',style: TextStyle(fontSize: 18),),
+            onTap: (){Navigator.pushNamed(context, 'notification');}
+          ),
+          ListTile(
+              leading: Icon(Icons.arrow_back),
+              title: Text('Log Out',style: TextStyle(fontSize: 18),),
+              onTap: (){Navigator.pushNamed(context, 'login');}
           ),
 
         ],

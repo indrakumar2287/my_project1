@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -37,15 +39,22 @@ class _LoginPageState extends State<LoginPage> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/login.png"), fit: BoxFit.cover)),
+              image: AssetImage("assets/images/image3.jpg"), fit: BoxFit.cover)),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+              child: Container(
+                color: Colors.transparent,
+              ),
+            ),
             Container(
-              padding: EdgeInsets.only(left: 100, top: 130),
+              padding: EdgeInsets.only(left: 100, top: 110,right: 100),
               child: Text(
                 "Welcome \nBack",
+                textAlign: TextAlign.center,
                 style: TextStyle(
                     fontFamily: 'Font3',
                     color: Colors.white,
@@ -56,7 +65,7 @@ class _LoginPageState extends State<LoginPage> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.5,
+                    top: MediaQuery.of(context).size.height * 0.4,
                     right: 35,
                     left: 35),
                 child: Column(
@@ -76,7 +85,6 @@ class _LoginPageState extends State<LoginPage> {
                         decoration: InputDecoration(
                           prefixIcon: Icon(Icons.email),
                             errorText: _emailError,
-                            labelText: 'Email',
                             fillColor: Colors.grey.shade100,
                             filled: true,
                             hintText: 'Email',
@@ -97,7 +105,6 @@ class _LoginPageState extends State<LoginPage> {
                           obscureText: _securetext,
                           decoration: InputDecoration(
                             prefixIcon: Icon(Icons.key),
-                            labelText: 'Password',
                             errorText: _passwordError,
                             fillColor: Colors.grey.shade100,
                             filled: true,
@@ -118,7 +125,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           ),
                         SizedBox(
-                            height: 40,
+                            height: 60,
                           ),
                         ],
                       ),
@@ -129,17 +136,17 @@ class _LoginPageState extends State<LoginPage> {
                         Text(
                           "Sign In",
                           style: TextStyle(
-                            color: Color(0xff4c505b),
+                            color: Colors.white,
                             fontSize: 27,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         CircleAvatar(
                           radius: 30,
-                          backgroundColor: Color(0xff4c505b),
+                          backgroundColor: Colors.white,
                           child: IconButton(
                             icon: Icon(Icons.arrow_forward),
-                            color: Colors.white,
+                            color: Colors.black,
                             onPressed: () {
                               setState(() {
                                 // String check = CheckUser(docIds[index],email.text) as String;
@@ -155,7 +162,8 @@ class _LoginPageState extends State<LoginPage> {
                                   _passwordError = null;
                                 };}
                                 else{
-                                  Navigator.pushNamed(context, 'home');
+                                  Navigator.pushNamed(context, 'home',arguments: email.text);
+                                  // Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage(mail: email.text,)));
                                   final name2 = email.text;
                                   final password2 = password.text;
                                   CreateUser(email: name2, password: password2);
@@ -167,7 +175,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
 
                     SizedBox(
-                      height: 40,
+                      height: 60,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -176,20 +184,26 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             Navigator.pushNamed(context, 'signup');
                           },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Colors.lightGreenAccent),
+                            foregroundColor: MaterialStateProperty.all(Colors.black),
+                          ),
                           child: Text(
                             "Sign Up",
                             style: TextStyle(
-                                decoration: TextDecoration.underline,
                                 fontSize: 18,
                                 color: Color(0xff4c505b)),
                           ),
                         ),
                         ElevatedButton(
                           onPressed: () {},
+                          style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.lightGreenAccent),
+                              foregroundColor: MaterialStateProperty.all(Colors.black)
+                          ),
                           child: Text(
                             "Forgot Password",
                             style: TextStyle(
-                                decoration: TextDecoration.underline,
                                 fontSize: 18,
                                 color: Color(0xff4c505b)),
                           ),
@@ -216,4 +230,5 @@ class _LoginPageState extends State<LoginPage> {
     /// Create Document and write data to Firebase
     await DocUser.set(json);
   }
+
 }

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -15,8 +17,14 @@ class _SignupPageState extends State<SignupPage> {
   final number = TextEditingController();
   final password = TextEditingController();
 
+  bool _securetext=true;
+  var _formkey = GlobalKey<FormState>();
+  String? _nameError;
+  String? _emailError;
+  String? _mobilenumberError;
+  String? _passwordError;
+
   final docuser = FirebaseFirestore.instance.collection('Users').doc();
-  // final user=FirebaseAuth.instance.currentUser!;
 
 
   @override
@@ -24,12 +32,19 @@ class _SignupPageState extends State<SignupPage> {
     return Container(
       decoration: BoxDecoration(
           image: DecorationImage(
-              image: AssetImage("assets/images/register.png"),
-              fit: BoxFit.cover)),
+              image: AssetImage("assets/images/image3.jpg"),
+              fit: BoxFit.cover)
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
           children: [
+            BackdropFilter(
+              filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
+              child: Container(
+                color: Colors.transparent,
+              ),
+            ),
             Container(
               padding: EdgeInsets.only(left: 100, top: 100),
               child: Text(
@@ -52,9 +67,11 @@ class _SignupPageState extends State<SignupPage> {
                     left: 35),
                 child: Column(
                   children: [
-                    TextField(
+                    TextFormField(
                       controller: name,
                       decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.person),
+                          errorText: _nameError,
                           fillColor: Colors.grey.shade100,
                           filled: true,
                           hintText: 'Name',
@@ -64,9 +81,11 @@ class _SignupPageState extends State<SignupPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    TextField(
+                    TextFormField(
                       controller: email,
                       decoration: InputDecoration(
+                        prefixIcon: Icon(Icons.email),
+                          errorText: _emailError,
                           fillColor: Colors.grey.shade100,
                           filled: true,
                           hintText: 'Email',
@@ -77,9 +96,16 @@ class _SignupPageState extends State<SignupPage> {
                     SizedBox(
                       height: 20,
                     ),
-                    TextField(
+                    TextFormField(
                       controller: number,
                       decoration: InputDecoration(
+                        prefixIcon: Padding(
+                          padding: const EdgeInsets.only(top: 11),
+                          child: Text('+91',style: TextStyle(fontSize: 18),textAlign: TextAlign.center,),
+                        ),
+                          // prefixText: '+91 ',
+                          prefixStyle: TextStyle(color: Colors.black87),
+                          errorText: _mobilenumberError,
                           fillColor: Colors.grey.shade100,
                           filled: true,
                           hintText: 'Mobile Number',
@@ -91,10 +117,22 @@ class _SignupPageState extends State<SignupPage> {
                     SizedBox(
                       height: 10,
                     ),
-                    TextField(
+                    TextFormField(
                       controller: password,
-                      obscureText: true,
+                      obscureText: _securetext,
                       decoration: InputDecoration(
+                          prefixIcon: Icon(Icons.security),
+                          suffixIcon: IconButton(
+                            icon: Icon(_securetext
+                                ? Icons.visibility
+                                : Icons.visibility_off),
+                            onPressed: () {
+                              setState(() {
+                                _securetext = !_securetext;
+                              });
+                            },
+                          ),
+                          errorText: _passwordError,
                           fillColor: Colors.grey.shade100,
                           filled: true,
                           hintText: 'Password',
@@ -102,7 +140,7 @@ class _SignupPageState extends State<SignupPage> {
                               borderRadius: BorderRadius.circular(10))),
                     ),
                     SizedBox(
-                      height: 50,
+                      height: 40,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,28 +148,54 @@ class _SignupPageState extends State<SignupPage> {
                         Text(
                           "Sign Up",
                           style: TextStyle(
-                            color: Color(0xff4c505b),
+                            color: Colors.white,
                             fontSize: 27,
                             fontWeight: FontWeight.w700,
                           ),
                         ),
                         CircleAvatar(
                           radius: 30,
-                          backgroundColor: Color(0xff4c505b),
+                          backgroundColor: Colors.white,
                           child: IconButton(
-                            color: Colors.white,
+                            color: Colors.black,
                             onPressed: () {
-                              final name3 = name.text;
-                              final email3 = email.text;
-                              final number3 = number.text;
-                              final password3 = password.text;
-                              CreateUser(
-                                  name: name3,
-                                  password: password3,
-                                  email: email3,
-                                  number: number3);
-                              Navigator.pushNamed(context, 'home');
-                            },
+                              setState(() {
+                                // String check = CheckUser(docIds[index],email.text) as String;
+                                if(email.text.length<8 || password.text.length < 8 || name.text.length < 1 || double.tryParse(number.text) == null || number.text.length < 10){
+                                  if(name.text.length < 1)
+                                    _nameError = "Name can't be blank";
+                                  else {
+                                    _nameError = null;
+                                  };
+                                  if(email.text.length < 8)
+                                    _emailError = "Invalid Email";
+                                  else {
+                                    _emailError = null;
+                                  };
+                                  if(double.tryParse(number.text) == null || number.text.length < 10 )
+                                    _mobilenumberError = "Please enter a valid Mobile Number";
+                                  else {
+                                    _mobilenumberError = null;
+                                  };
+                                  if(password.text.length < 8)
+                                    _passwordError = "Enter at least 8 characters";
+                                  else {
+                                    _passwordError = null;
+                                  };}
+                                else{
+                                  Navigator.pushNamed(context, 'home');
+                                  final name3 = name.text;
+                                  final email3 = email.text;
+                                  final number3 = number.text;
+                                  final password3 = password.text;
+                                  CreateUser(
+                                      name: name3,
+                                      password: password3,
+                                      email: email3,
+                                      number: number3);
+                                };
+                              });
+                              },
                             icon: Icon(Icons.arrow_forward),
                           ),
                         )
@@ -145,7 +209,8 @@ class _SignupPageState extends State<SignupPage> {
                       children: [
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.grey),
+                            backgroundColor: MaterialStateProperty.all(Colors.lightGreenAccent),
+                            foregroundColor: MaterialStateProperty.all(Colors.black),
                           ),
                           onPressed: () {
                             Navigator.pushNamed(context, 'login');
@@ -153,20 +218,19 @@ class _SignupPageState extends State<SignupPage> {
                           child: Text(
                             "Sign In",
                             style: TextStyle(
-                                decoration: TextDecoration.underline,
                                 fontSize: 18,
                                 color: Color(0xff4c505b)),
                           ),
                         ),
                         ElevatedButton(
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.grey),
+                            backgroundColor: MaterialStateProperty.all(Colors.lightGreenAccent),
+                            foregroundColor: MaterialStateProperty.all(Colors.black),
                           ),
                           onPressed: () {},
                           child: Text(
                             "Forgot Password",
                             style: TextStyle(
-                                decoration: TextDecoration.underline,
                                 fontSize: 18,
                                 color: Color(0xff4c505b)),
                           ),

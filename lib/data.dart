@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:my_project1/pages/signup_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import 'database.dart';
+import 'databaseclass.dart';
 class Data extends StatefulWidget {
   const Data({Key? key}) : super(key: key);
 
@@ -14,9 +14,6 @@ class _DataState extends State<Data> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Data"),
-      ),
       body: StreamBuilder<List<database>>(
         stream: ReadUsers(),
         builder: (context, snapshot) {
