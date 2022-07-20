@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
-class View extends StatefulWidget {
-  const View({Key? key}) : super(key: key);
+class Category extends StatefulWidget {
+  const Category({Key? key}) : super(key: key);
 
   @override
-  State<View> createState() => _ViewState();
+  State<Category> createState() => _ViewState();
 }
 
-class _ViewState extends State<View> {
+class _ViewState extends State<Category> {
 
   @override
   Widget build(BuildContext context) {

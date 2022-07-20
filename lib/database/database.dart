@@ -2,9 +2,9 @@ import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_project1/database/get_user_name.dart';
 import 'get_email.dart';
 import '../pages/signup_page.dart';
+import 'get_user.dart';
 
 
 
@@ -52,7 +52,7 @@ class _DatabaseState extends State<Database> {
                         child: ListTile(
                           leading: Icon(Icons.person,size: 40,),
                           title: Container(
-                              child: GetUserName(documentId: docIds[index])),
+                              child: GetUser(documentId: docIds[index])),
                           iconColor: Colors.black87,
                           textColor: Colors.black87,
                           subtitle: GetEmail(documentId: docIds[index]),

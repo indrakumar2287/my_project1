@@ -1,24 +1,35 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:my_project1/pages/view.dart';
+import 'package:my_project1/pages/category.dart';
+import 'package:my_project1/pages/login_page.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../drawer.dart';
-import 'demo.dart';
+import 'cart.dart';
 import 'profile.dart';
 import 'notification.dart';
 
 
 class MyHomepage2 extends StatefulWidget {
-  const MyHomepage2({Key? key}) : super(key: key);
+  MyHomepage2({Key? key}) : super(key: key);
+
+  String docId = '';
+  String userId = "";
 
   @override
   State<MyHomepage2> createState() => _MyHomepage2State();
 }
 
 class _MyHomepage2State extends State<MyHomepage2> {
+late String name;
+
+
+
   static int  _selectedItem=0;
   static List<Widget> _widgetoption = <Widget>[
     MyNotification(),
-    Demo(),
-    View(),
+    Cart(),
+    Category(),
     MyProfile(),
   ];
 
@@ -26,11 +37,16 @@ class _MyHomepage2State extends State<MyHomepage2> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    getName2();
+    // final user = FirebaseAuth.instance.currentUser!;
+     return Scaffold(
+      // appBar: AppBar(
+        // title: const Text("Catalog app",style: TextStyle(
+        //   fontSize: 25,
+        // ),),),
       appBar: AppBar(
-        title: const Text("Catalog app",style: TextStyle(
-          fontSize: 25,
-        ),),),
+        title: Text(name),
+      ),
       drawer: MyDrawer(),
       body: _widgetoption.elementAt(_selectedItem),
       bottomNavigationBar:BottomNavigationBar(
@@ -65,4 +81,14 @@ class _MyHomepage2State extends State<MyHomepage2> {
     },),
     );
   }
+
+getName2() async
+{
+  var pref = await SharedPreferences.getInstance();
+
+  String name3 = pref.getString('Name2')!;
+  setState(() {
+    name=name3;
+  });
+}
 }

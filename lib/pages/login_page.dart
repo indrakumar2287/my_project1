@@ -4,6 +4,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_project1/database/check_user.dart';
+import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../Authentication/authentication_service.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -13,26 +17,25 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  TextEditingController email = TextEditingController();
+  static TextEditingController email = TextEditingController();
   TextEditingController password = TextEditingController();
 
+  FirebaseFirestore db=FirebaseFirestore.instance;
+
+  CheckData(String email,String password) {
+    String password4,email4;
+
+    db.collection("Users").where("Name", isEqualTo: true).get().then(
+          (res) => {
+
+          },
+      onError: (e) => print("Error completing: $e"),
+    );
+  }
   bool _securetext=true;
   var _formkey = GlobalKey<FormState>();
   String? _emailError;
   String? _passwordError;
-
-  List<String> docIds =[];
-
-  //Get IDs
-  Future getIds() async {
-    await FirebaseFirestore.instance.collection('Users').get().
-    then((snapshot) => snapshot.docs.forEach((document) {
-      // print(document.reference);
-      docIds.add(document.reference.id);
-    })
-    );
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -148,6 +151,8 @@ class _LoginPageState extends State<LoginPage> {
                             icon: Icon(Icons.arrow_forward),
                             color: Colors.black,
                             onPressed: () {
+                            //  if(email.text=='x')   Navigator.pushNamed(context, 'home',arguments: email.text);
+
                               setState(() {
                                 // String check = CheckUser(docIds[index],email.text) as String;
                                 if(email.text.length<8 || password.text.length < 8){
@@ -162,11 +167,17 @@ class _LoginPageState extends State<LoginPage> {
                                   _passwordError = null;
                                 };}
                                 else{
-                                  Navigator.pushNamed(context, 'home',arguments: email.text);
+                                  // Navigator.pushNamed(context, 'home',arguments: email.text);
                                   // Navigator.push(context, MaterialPageRoute(builder: (context) => Homepage(mail: email.text,)));
-                                  final name2 = email.text;
-                                  final password2 = password.text;
-                                  CreateUser(email: name2, password: password2);
+                                  String email2 = email.text.trim();
+                                  String password2 = password.text;
+                                  CreateUser(email: email2, password: password2);
+
+                                  void getName() async {
+                                    final pref = await SharedPreferences.getInstance();
+                                    pref.setString('Name2', email2);
+                                  }
+                                  getName();
                                 };
                               });
                             }, ),
@@ -188,8 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                             backgroundColor: MaterialStateProperty.all(Colors.lightGreenAccent),
                             foregroundColor: MaterialStateProperty.all(Colors.black),
                           ),
-                          child: Text(
-                            "Sign Up",
+                          child: Text("Sign Up",
                             style: TextStyle(
                                 fontSize: 18,
                                 color: Color(0xff4c505b)),
@@ -218,7 +228,10 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+
   }
+
+
 
   Future CreateUser({required String email, required String password}) async {
     ///Reference to document

@@ -4,30 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:my_project1/data.dart';
 import 'package:my_project1/database/database.dart';
 import 'package:my_project1/drawer.dart';
-import 'package:my_project1/pages/demo.dart';
-import 'package:my_project1/pages/profile.dart';
+import 'package:my_project1/pages/cart.dart';
+import 'package:provider/provider.dart';
 import 'package:my_project1/pages/homepage2.dart';
 import 'package:my_project1/pages/login_page.dart';
 import 'package:my_project1/pages/notification.dart';
 import 'package:my_project1/pages/signup_page.dart';
-import 'package:my_project1/pages/view.dart';
-// import 'package:passcode_screen/passcode_screen.dart';
+import 'package:my_project1/pages/category.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'Authentication/authentication_service.dart';
 
-Map<int, Color> color = {
-  50: Color.fromRGBO(136, 14, 79, .1),
-  100: Color.fromRGBO(136, 14, 79, .2),
-  200: Color.fromRGBO(136, 14, 79, .3),
-  300: Color.fromRGBO(136, 14, 79, .4),
-  400: Color.fromRGBO(136, 14, 79, .5),
-  500: Color.fromRGBO(136, 14, 79, .6),
-  600: Color.fromRGBO(136, 14, 79, .7),
-  700: Color.fromRGBO(136, 14, 79, .8),
-  800: Color.fromRGBO(136, 14, 79, .9),
-  900: Color.fromRGBO(136, 14, 79, 1),
-};
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   AwesomeNotifications().initialize(null, [
     NotificationChannel(
       channelKey: 'key1',
@@ -40,7 +31,6 @@ Future main() async {
       enableVibration: true,
     ),
   ]);
-  await Firebase.initializeApp();
 
   runApp(MyApp());
 }
@@ -50,7 +40,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color c = const Color(0xFFFF2400);
+
     MaterialColor mycolor = MaterialColor(0xFFC62168, color);
     MaterialColor mycolor2 = MaterialColor(0xFF98B4D4, color);
     MaterialColor mycolor3 = MaterialColor(0xFFFF6F61, color);
@@ -60,19 +50,39 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: mycolor3),
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: "home",
+      initialRoute: "login",
       routes: {
-        "home": (context) => const MyHomepage2(),
+        "home": (context) => MyHomepage2(),
         "login": (context) => const LoginPage(),
         "signup": (context) => const SignupPage(),
         "drawer": (context) => const MyDrawer(),
         'database': (context) => const Database(),
         'data': (context) => const Data(),
-        'demo': (context) => const Demo(),
-        'view': (context) => const View(),
+        'demo': (context) => const Cart(),
+        'view': (context) => const Category(),
         'notification': (context) => const MyNotification(),
         // 'passcode' : (context) => const PassCode(),
       },
+    );
+  }
+}
+
+class MainPage extends StatelessWidget {
+  const MainPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: StreamBuilder<User?>(
+        stream: FirebaseAuth.instance.authStateChanges(),
+        builder: (context, snapshot) {
+          if(snapshot.hasData){
+            return MyHomepage2();
+          }else{
+            return LoginPage();
+          }
+        }
+      ),
     );
   }
 }
@@ -94,17 +104,27 @@ void Notify() async {
   );
 }
 
-class MyColor extends MaterialStateColor {
-  const MyColor() : super(_defaultColor);
-
-  static const int _defaultColor = 0xFFFF2400;
-  static const int _pressedColor = 0xdeadbeef;
-
+class AuthenticationWrapper extends StatelessWidget {
   @override
-  Color resolve(Set<MaterialState> states) {
-    if (states.contains(MaterialState.pressed)) {
-      return const Color(_pressedColor);
+  Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User>();
+
+    if (firebaseUser != null) {
+      return MyHomepage2();
     }
-    return const Color(_defaultColor);
+    return LoginPage();
   }
 }
+
+Map<int, Color> color = {
+  50: Color.fromRGBO(136, 14, 79, .1),
+  100: Color.fromRGBO(136, 14, 79, .2),
+  200: Color.fromRGBO(136, 14, 79, .3),
+  300: Color.fromRGBO(136, 14, 79, .4),
+  400: Color.fromRGBO(136, 14, 79, .5),
+  500: Color.fromRGBO(136, 14, 79, .6),
+  600: Color.fromRGBO(136, 14, 79, .7),
+  700: Color.fromRGBO(136, 14, 79, .8),
+  800: Color.fromRGBO(136, 14, 79, .9),
+  900: Color.fromRGBO(136, 14, 79, 1),
+};

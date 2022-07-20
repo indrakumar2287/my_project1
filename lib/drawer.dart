@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import 'Authentication/authentication_service.dart';
 
 class MyDrawer extends StatelessWidget {
   const MyDrawer({Key? key}) : super(key: key);
@@ -67,7 +70,9 @@ class MyDrawer extends StatelessWidget {
           ListTile(
               leading: Icon(Icons.arrow_back),
               title: Text('Log Out',style: TextStyle(fontSize: 18),),
-              onTap: (){Navigator.pushNamed(context, 'login');}
+              onTap: (){
+                context.read<AuthenticationService>().signOut();
+                Navigator.pushNamed(context, 'login');}
           ),
 
         ],
