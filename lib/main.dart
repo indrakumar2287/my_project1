@@ -35,6 +35,8 @@ Future main() async {
   runApp(MyApp());
 }
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
 
@@ -47,28 +49,30 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      navigatorKey: navigatorKey,
       themeMode: ThemeMode.light,
       theme: ThemeData(primarySwatch: mycolor3),
       darkTheme: ThemeData(brightness: Brightness.dark),
-      initialRoute: "login",
+      initialRoute: "main",
       routes: {
         "home": (context) => MyHomepage2(),
         "login": (context) => const LoginPage(),
         "signup": (context) => const SignupPage(),
-        "drawer": (context) => const MyDrawer(),
+        "drawer": (context) =>  MyDrawer(),
         'database': (context) => const Database(),
         'data': (context) => const Data(),
-        'demo': (context) => const Cart(),
-        'view': (context) => const Category(),
+        'cart': (context) => const Cart(),
+        'category': (context) => const Category(),
         'notification': (context) => const MyNotification(),
+        'main': (context) => MainPage(),
         // 'passcode' : (context) => const PassCode(),
       },
+      home: MainPage(),
     );
   }
 }
 
 class MainPage extends StatelessWidget {
-  const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -76,7 +80,11 @@ class MainPage extends StatelessWidget {
       body: StreamBuilder<User?>(
         stream: FirebaseAuth.instance.authStateChanges(),
         builder: (context, snapshot) {
-          if(snapshot.hasData){
+          if(snapshot.connectionState == ConnectionState.waiting)
+            return Center(child: CircularProgressIndicator());
+          else if(snapshot.hasError)
+            return Center(child: Text("Something Went Wrong"),);
+          else if(snapshot.hasData){
             return MyHomepage2();
           }else{
             return LoginPage();
@@ -86,6 +94,18 @@ class MainPage extends StatelessWidget {
     );
   }
 }
+
+// class AuthenticationWrapper extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     final firebaseUser = context.watch<User>();
+//
+//     if (firebaseUser != null) {
+//       return MyHomepage2();
+//     }
+//     return LoginPage();
+//   }
+// }
 
 void Notify() async {
   String timezone = await AwesomeNotifications().getLocalTimeZoneIdentifier();
@@ -97,23 +117,11 @@ void Notify() async {
       body: "Get Your New Products at Minimum price",
       // bigPicture: "assets/images/not2.png",
       bigPicture:
-          'https://www.pngall.com/wp-content/uploads/2016/04/50-Off-PNG-Clipart-Background.png',
+      'https://www.pngall.com/wp-content/uploads/2016/04/50-Off-PNG-Clipart-Background.png',
       notificationLayout: NotificationLayout.BigPicture,
     ),
     // schedule: NotificationInterval(interval: 5,timeZone: timezone,repeats: true),
   );
-}
-
-class AuthenticationWrapper extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
-
-    if (firebaseUser != null) {
-      return MyHomepage2();
-    }
-    return LoginPage();
-  }
 }
 
 Map<int, Color> color = {
@@ -128,3 +136,4 @@ Map<int, Color> color = {
   800: Color.fromRGBO(136, 14, 79, .9),
   900: Color.fromRGBO(136, 14, 79, 1),
 };
+

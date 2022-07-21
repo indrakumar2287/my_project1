@@ -38,14 +38,14 @@ late String name;
   @override
   Widget build(BuildContext context) {
     getName2();
-    // final user = FirebaseAuth.instance.currentUser!;
+    final user = FirebaseAuth.instance.currentUser!;
      return Scaffold(
       // appBar: AppBar(
         // title: const Text("Catalog app",style: TextStyle(
         //   fontSize: 25,
         // ),),),
       appBar: AppBar(
-        title: Text(name),
+        title: Text(user.email!),
       ),
       drawer: MyDrawer(),
       body: _widgetoption.elementAt(_selectedItem),

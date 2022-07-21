@@ -1,10 +1,13 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'Authentication/authentication_service.dart';
 
 class MyDrawer extends StatelessWidget {
-  const MyDrawer({Key? key}) : super(key: key);
+
+  final user = FirebaseAuth.instance.currentUser!;
+   MyDrawer({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +37,7 @@ class MyDrawer extends StatelessWidget {
                     fontSize: 22,
                     color: Colors.white,
                   ),),
-                  Text("indraxyz123@gmail.com",style: TextStyle(
+                  Text(user.email!,style: TextStyle(
                     color: Colors.white,
                   ),)
                 ],
@@ -70,9 +73,8 @@ class MyDrawer extends StatelessWidget {
           ListTile(
               leading: Icon(Icons.arrow_back),
               title: Text('Log Out',style: TextStyle(fontSize: 18),),
-              onTap: (){
-                context.read<AuthenticationService>().signOut();
-                Navigator.pushNamed(context, 'login');}
+
+              onTap: (){FirebaseAuth.instance.signOut();}
           ),
 
         ],
